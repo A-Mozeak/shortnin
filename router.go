@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Initializing the storage here, potential to expose an interface instead for polymorphism.
 var storage = NewDB()
 
 func NewRouter() *mux.Router {
@@ -35,5 +36,3 @@ var routes = []Route{
 	{"Redirect", "GET", "/{short}", storage.Goto},
 	{"Generate", "POST", "/create", storage.PutURL},
 }
-
-// I considered using a "/stats/{shortlink}" interface but that seems better suited to CMS

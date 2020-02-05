@@ -37,7 +37,7 @@ The MockDB struct is a mock database that consists of only two maps:
 1. A map from long urls to randomly-generated shortlinks. I'm using this map to check if a shortlink has already been generated for the given url.
 1. A map from shortlinks to Shorty structs. I'm using this map to address the data associated with a given shortlink. This structure also allows us to map multiple custom shortlinks to the same long URL.
 
-The Shorty struct is a data model that associates a shortlink with a long URL, and keeps track of the shortlinks usage. Each Shorty is serializable into a JSON object.
+The Shorty struct is a data model that associates a shortlink with a long URL, and keeps track of the shortlink's usage. Each Shorty is serializable into a JSON object.
 
 ## Generating the Shortlinks
 For this exercise, I went with something pretty brute-force for generating the shortlinks.
@@ -45,3 +45,10 @@ For this exercise, I went with something pretty brute-force for generating the s
 1. Establish an alphabet (in this case [a-zA-Z0-9]).
 1. For 6 turns, use the RNG to choose one value, by index, from the alphabet and concatenate it to a string (I used stringBuilder to minimize copying the string).
 1. Return the generated string.
+
+## API Ergonomics
+I had two choices when it came to structuring the API. The first was to expose routes using e.g., ```/create/{url}/{custom}```. I loved working with Feedly's RSS API in this format, as one can just build a path to their desired item and Fetch() (using Javascript). 
+
+The second choice, which I ultimately went with, was to keep the paths/routes short and leave it to the querystring to determine what data to pull. This is more aligned with other JSON APIs that I have worked with and I feel like this usage is more wide-spread. It's important for an API to try to meet its consumers where they are.
+
+I also wanted to leave the empty route open so that visiting a shortlink is as easy as visiting ```/{shortlink}```. This is the behavior people generally expect from something like bit.ly, and I, again, want to meet users where they are.
