@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func (d *MockDB) PutURL(w http.ResponseWriter, r *http.Request) {
+func (d *MockDB) Generate(w http.ResponseWriter, r *http.Request) {
 
 	query := GetQueryParams(r)
 
@@ -35,7 +35,7 @@ func (d *MockDB) PutURL(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(shorty.Name))
 }
 
-func (d MockDB) Get(w http.ResponseWriter, r *http.Request) {
+func (d MockDB) List(w http.ResponseWriter, r *http.Request) {
 	var items []struct {
 		ShortURL string `json:"shortURL"`
 		LongURL  string `json:"longURL"`
@@ -54,7 +54,7 @@ func (d MockDB) Get(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(items)
 }
 
-func (d *MockDB) Goto(w http.ResponseWriter, r *http.Request) {
+func (d *MockDB) Redir(w http.ResponseWriter, r *http.Request) {
 	shortStr := mux.Vars(r)["short"]
 	var shortObj *Shorty
 	_, ok := d.shortMap[shortStr]
@@ -65,8 +65,14 @@ func (d *MockDB) Goto(w http.ResponseWriter, r *http.Request) {
 		shortObj = d.shortMap[shortStr]
 	}
 
-	UpdateStats(shortObj)
-	original := "https://" + shortObj.Link
+	var original string
+	if shortObj != nil {
+		UpdateStats(shortObj)
+		original = "https://" + shortObj.Link
+	} else {
+		original = "https://www.google.com"
+	}
+
 	log.Println(original)
 	http.Redirect(w, r, original, http.StatusFound)
 }

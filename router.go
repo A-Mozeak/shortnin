@@ -31,8 +31,8 @@ type Route struct {
 }
 
 var routes = []Route{
-	{"Store", "GET", "/list", storage.Get},
+	{"Store", "GET", "/list", storage.List},
 	{"Stats", "GET", "/stats", storage.Stats},
-	{"Redirect", "GET", "/{short}", storage.Goto},
-	{"Generate", "POST", "/create", storage.PutURL},
+	{"Redirect", "GET", "/{short}", storage.Redir},
+	{"Generate", "POST", "/create", storage.Generate},
 }
