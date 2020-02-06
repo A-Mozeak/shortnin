@@ -11,12 +11,18 @@ A link shortening API written in Go.
 ## Usage
 ### *Create*
 To generate a link, send a **POST** request to ```/create?{params}``` with the following parameters:
-* url - The URL to be shortened.
-* custom (optional) - An optional string for a custom short URL.
+* **url** - The URL to be shortened.
+* **custom (optional)** - An optional string for a custom short URL.
 
 ### *Stats*
 To view link usage statistics, send a **GET** request to ```/stats?{params}``` with the following parameters:
-* link - The short link to be viewed.
+* **link** - The short link to be viewed.
+
+### *List*
+To view a list of links created so far, just navigate to ```/list```.
+
+### *Redirection*
+The server will automatically redirect requests made to an existing shortlink. Simply navigate to ```/{shortlink}```.
 
 # Design
 ## Language/Frameworks
@@ -30,14 +36,14 @@ I have done most of my professional work using Node.js, but I felt that Go would
 - Challenge
   - I only picked up Go in December, and I want to demonstrate that I have a grasp of web concepts that transcends any particular language.
 
-I also used **Mux** to handle the app routing. Mux is a popular tool among Go developers because it abstracts away some of the low-level specifics of the ```http.ServeMux``` in the standard library. I also appreciate that it makes the routing component of this project a great deal easier to read.
+I also used [Mux](https://www.gorillatoolkit.org/pkg/mux) to handle the app routing. Mux is a popular tool among Go developers because it abstracts away some of the low-level specifics of the ```http.ServeMux``` in the standard library. I also appreciate that it makes the routing component of this project a great deal easier to read.
 
 ## Storage
-The MockDB struct is a mock database that consists of only two maps:
+The *MockDB* struct is a mock database that consists of only two maps:
 1. A map from long urls to randomly-generated shortlinks. I'm using this map to check if a shortlink has already been generated for the given url.
 1. A map from shortlinks to Shorty structs. I'm using this map to address the data associated with a given shortlink. This structure also allows us to map multiple custom shortlinks to the same long URL.
 
-The Shorty struct is a data model that associates a shortlink with a long URL, and keeps track of the shortlink's usage. Each Shorty is serializable into a JSON object.
+The *Shorty* struct is a data model that associates a shortlink with a long URL, and keeps track of the shortlink's usage. **Each Shorty is serializable into a JSON object.**
 
 ## Generating the Shortlinks
 For this exercise, I went with something pretty brute-force for generating the shortlinks.
@@ -47,7 +53,7 @@ For this exercise, I went with something pretty brute-force for generating the s
 1. Return the generated string.
 
 ## API Ergonomics
-I had two choices when it came to structuring the API. The first was to expose routes using e.g., ```/create/{url}/{custom}```. I loved working with Feedly's RSS API in this format, as one can just build a path to their desired item and Fetch() (using Javascript). 
+I had two choices when it came to structuring the API. The first was to expose routes using e.g., ```/create/{url}/{custom}```. I loved working with Feedly's RSS API in this format, as one can just build a path to their desired item and Fetch() (if using Javascript). 
 
 The second choice, which I ultimately went with, was to keep the paths/routes short and leave it to the querystring to determine what data to pull. This is more aligned with other JSON APIs that I have worked with and I feel like this usage is more wide-spread. It's important for an API to try to meet its consumers where they are.
 
