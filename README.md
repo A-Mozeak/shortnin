@@ -5,8 +5,10 @@ A link shortening API written in Go.
 
 ## Installation
 1. [Install Go](https://golang.org/doc/install)
-1. Run ```go build```
-1. Run ```./shortnin```
+1. Clone this repo.
+1. Inside the cloned repository, run ```go get github.com/gorilla/mux```.
+1. Compile the project with ```go build```.
+1. Run ```./shortnin```.
 
 ## Usage
 ### *Create*
