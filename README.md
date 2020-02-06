@@ -8,7 +8,7 @@ A link shortening API written in Go.
 1. Clone this repo.
 1. Inside the cloned repository, run ```go get github.com/gorilla/mux```.
 1. Compile the project with ```go build```.
-1. Run ```./shortnin```.
+1. Run ```./shortnin```. The server will start listening on port 8080.
 
 ## Usage
 ### *Create*
