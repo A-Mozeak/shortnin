@@ -11,13 +11,16 @@ import (
 // GenerateShort creates a 6-character alphanumeric shortlink using a random number generator.
 func GenerateShort() string {
 	var sb strings.Builder
+
 	alphabet := "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	seed := rand.NewSource(time.Now().UnixNano())
 	randHex := rand.New(seed)
+
 	for i := 0; i < 6; i++ {
 		pick := randHex.Intn(62)
 		sb.WriteByte(alphabet[pick])
 	}
+
 	return sb.String()
 }
 

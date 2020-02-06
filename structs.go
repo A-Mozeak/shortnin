@@ -15,12 +15,7 @@ type Shorty struct {
 }
 
 type MockDB struct {
-	// longMap maps long URLs to random short URLs, ensures that there is only
-	// one generated URL per long URL.
-	longMap map[string]string
-
-	// shortMap maps short urls to Shorty structs, allows multiple custom URLs to redirect to
-	// the same long URL.
+	longMap  map[string]string
 	shortMap map[string]*Shorty
 }
 
