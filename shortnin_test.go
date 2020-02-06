@@ -23,6 +23,19 @@ func TestMainAPI(t *testing.T) {
 			t.Errorf("wanted %v, got %v", want, got)
 		}
 	})
+	t.Run("long URL idempotency", func(t *testing.T) {
+		storage := NewDB()
+		req := httptest.NewRequest("POST", "/create?url=www.example.com", nil)
+		res := httptest.NewRecorder()
+		storage.Generate(res, req)
+
+		req2 := httptest.NewRequest("POST", "/create?url=www.example.com", nil)
+		res2 := httptest.NewRecorder()
+		storage.Generate(res2, req2)
+
+		fmt.Println(res.Body)
+		fmt.Println(res2.Body)
+	})
 	t.Run("storage update cross check", func(t *testing.T) {
 		storage := NewDB()
 		req := httptest.NewRequest("POST", "/create?url=www.example.com", nil)

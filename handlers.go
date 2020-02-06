@@ -33,6 +33,10 @@ func (d *MockDB) Generate(w http.ResponseWriter, r *http.Request) {
 		shorty.Link = orig
 		d.longMap[orig] = shorty.Name
 		d.shortMap[shorty.Name] = &shorty
+	} else {
+		existing := d.longMap[orig]
+		item := d.shortMap[existing]
+		w.Write([]byte(item.Name))
 	}
 
 	w.Write([]byte(shorty.Name))
