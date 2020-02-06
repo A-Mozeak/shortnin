@@ -6,7 +6,7 @@ A link shortening API written in Go.
 ## Installation
 1. [Install Go](https://golang.org/doc/install)
 1. Run ```go build```
-1. Run ```./shorty```
+1. Run ```./shortnin```
 
 ## Usage
 ### *Create*
@@ -22,7 +22,7 @@ To view link usage statistics, send a **GET** request to ```/stats?{params}``` w
 ## Language/Frameworks
 I have done most of my professional work using Node.js, but I felt that Go would be at least as good a fit for this project, if not better. The reasons why I chose Go are:
 - Tooling
-  - Go offers a great set of tools out of the box. Dependency management is a breeze, thanks to ```go get```, and being able to pull in parts of the standard library automatically as I need them helps me to be more productive.
+  - Go offers a great set of tools out of the box. Dependency management is a breeze, thanks to ```go get```, and being able to pull in parts of the standard library automatically as I need them helps me to be more productive. Also, built-in testing tools.
 - Standard Library
   - The Go standard library has a deep set of tools for working with http, json, and other web technologies.
 - Syntax
