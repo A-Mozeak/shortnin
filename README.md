@@ -4,7 +4,7 @@ A link shortening API written in Go.
 # Getting Started
 
 ## Installation
-1. Install Go
+1. [Install Go](https://golang.org/doc/install)
 1. Run ```go build```
 1. Run ```./shorty```
 
